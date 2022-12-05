@@ -5,24 +5,24 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 let amount = document.querySelector("input");
-amount.addEventListener("input", (event) => {
-  amount = parseInt(event.currentTarget.value);
-  console.log(amount);
-});
+let value = amount.value != "" ? amount.value : 1;
+const initialSize = 30;
+let currentSize = initialSize;
+let newBox;
 function createBoxes() {
-  for ( let i = 1; i <= amount; i++) {
-  let newBox = document.createElement("div");
-  let sizeBox = 20 + i * 10;
-  newBox.style.width = `${sizeBox}px`;
-  newBox.style.height = `${sizeBox}px`;
+  for ( let i = 1; i <= amount.value; i++) {
+  newBox = document.createElement("div");
+  newBox.style.width = `${currentSize}px`;
+  newBox.style.height = `${currentSize}px`;
   newBox.style.backgroundColor = getRandomHexColor();
+  currentSize += 10;
   boxesElements.append(newBox);
   console.log(newBox);
   }
 }
 const handleClickDestroy = () => {
-  boxesElements.remove();
-  console.log(boxesElements);
+  newBox.remove();
+  currentSize = initialSize;
 }
 createButton.addEventListener("click", createBoxes);
 destroyButton.addEventListener("click", handleClickDestroy);
